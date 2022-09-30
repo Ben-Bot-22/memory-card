@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import Card from './Card';
-import GameOverModal from './GameOverModal';
 
 const cards = [
   { file: '001', name: 'Bulbasaur' },
@@ -18,12 +17,11 @@ const cards = [
   { file: '012', name: 'Jigglypuff' },
 ];
 
-function Board({ updateScore, updateBest, resetScore, score, best }) {
+function Board({ updateScore, updateBest, resetScore, score, best, open }) {
   const [selected, setSelected] = useState([]);
 
   function shuffle() {
     const shuffled = cards.sort(() => 0.5 - Math.random());
-    // console.log(shuffled);
     return shuffled;
   }
 
@@ -36,8 +34,8 @@ function Board({ updateScore, updateBest, resetScore, score, best }) {
       return [...current, card];
     });
     if (selected.includes(card)) {
-      console.log('game over');
-      // init modal w/ backdrop
+      open();
+      setSelected([]);
       resetScore();
     } else {
       updateScore();
@@ -46,7 +44,7 @@ function Board({ updateScore, updateBest, resetScore, score, best }) {
   };
 
   return (
-    <div className="mt-4 grid grid-cols-3 place-items-center gap-4">
+    <div className="mt-4 grid grid-cols-3 place-items-center gap-4 sm:grid-cols-2">
       {cards.map((card) => (
         <Card key={card.file} card={card} onClick={handleClick} />
       ))}
@@ -60,6 +58,7 @@ Board.propTypes = {
   resetScore: propTypes.func.isRequired,
   score: propTypes.number.isRequired,
   best: propTypes.number.isRequired,
+  open: propTypes.func.isRequired,
 };
 
 export default Board;
