@@ -1,15 +1,15 @@
 import React from 'react';
 import Pokeball from './Pokeball';
 
-const Header = () => {
+function Header() {
   return (
-    <div className="flex flex-col justify-center content-center text-center top-0 w-screen h-10 text-xl tracking-wider m-2">
-      <h1 className="text-white font-bold">
+    <div className="top-0 m-2 flex h-10 w-screen flex-col content-center justify-center text-center">
+      <h1 className="text-3xl font-bold tracking-wider text-white">
         {' '}
         <Pokeball /> Pokemon Memory Cards <Pokeball />
       </h1>
     </div>
   );
-};
+}
 
 export default Header;
